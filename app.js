@@ -67,7 +67,6 @@ app.get('/webhook', (req, res) => {
   
   /** UPDATE YOUR VERIFY TOKEN **/
   const VERIFY_TOKEN = "amer";
-  console.log(VERIFY_TOKEN);
   // Parse params from the webhook verification request
   let mode = req.query['hub.mode'];
   let token = req.query['hub.verify_token'];
@@ -92,13 +91,13 @@ app.get('/webhook', (req, res) => {
 
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
-let response;
+let response=[];
 
   // Check if the message contains text
   if (received_message.text) {    
 
     // Create the payload for a basic text message
-    response = {
+    response[0] = {
       "attachment":{
       "type":"template",
       "payload":{
@@ -128,59 +127,61 @@ let response;
 
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
-let response;
-  
-  // Get the payload for the postback
-  let payload = received_postback.payload;
+    let response=[];
 
-  // Set the response based on the postback payload
-  if (payload === 'yes'|| payload ==="travel-other" ) {
-    response = { "text": "شكرا سيكون الادمن معك خلال لحظات!" }
-  } else if (payload === 'travel') {
-   response = {
-      "attachment":{
-      "type":"template",
-      "payload":{
-        "template_type":"button",
-        "text":" الغرض من السفر ?",
-        "buttons":[
-          {
-            "type":"postback",
-            "title":"الدراسه بكالوريوس وماجستير",
-             "payload":'travel-study',
-          },
-          {
-              "type": "postback",
-              "title": "الزياره اوالسياحه",
-              "payload": "travel-visit",
-          },
-          {
-              "type": "postback",
-              "title": "العمل او بحث عن عمل",
-              "payload": "travel-work",
-          },
-           
-           
-        ]
-      } 
+    // Get the payload for the postback
+    let payload = received_postback.payload;
+
+    // Set the response based on the postback payload
+    if (payload === 'yes'|| payload ==="travel-other" ) {
+        response .push({ "text": "شكرا سيكون الادمن معك خلال لحظات!" })
+    } else if (payload === 'travel') {
+        response .push({
+            "attachment":{
+                "type":"template",
+                "payload":{
+                    "template_type":"button",
+                    "text":" الغرض من السفر ?",
+                    "buttons":[
+                        {
+                            "type":"postback",
+                            "title":"الدراسه بكالوريوس وماجستير",
+                            "payload":'travel-study',
+                        },
+                        {
+                            "type": "postback",
+                            "title": "الزياره اوالسياحه",
+                            "payload": "travel-visit",
+                        },
+                        {
+                            "type": "postback",
+                            "title": "العمل او بحث عن عمل",
+                            "payload": "travel-work",
+                        },
+
+
+                    ]
+                }
+            }
+        })
+    }else if(payload=="travel-study") {
+        response.push({"text": "https://www.daad.de/en/ موقع المفيد للمنح الجامعية " + "/n"});
+        response.push({"text": "https://www.studycheck.de/ وهذا موقع في تقيمات طلاب" + "/n"});
+        response.push({"text": "https://ranking.zeit.de/che/en/ وهذا موقع في نسبة نجاح طلاب في كل تخصص في كل جامعة وتقيمات طلاب وعدد طلاب في تخصص ومعلومات كثير ممكن ساعدك باختيار جامعة" + "/n"});
+    } else if(payload=="travel-work"){
+        response .push( { "text": "https://amman.diplo.de/jo-ar/service/05-VisaEinreise/-/1350904 شروطها في هذا الرابط"+"/n"});
+        response .push( { "text":  "https://www.facebook.com/jordanier.in.Deutschland/posts/2289200004666207 اشهر مواقع التوظيف تجدها في هذا المنشور" });
+
     }
-  }
-  }else if(payload=="travel-study"){
-    response = { "text": "https://www.daad.de/en/ موقع المفيد للمنح الجامعية "+"/n"+
-                "https://www.studycheck.de/ وهذا موقع في تقيمات طلاب"  +"/n"+
-               "https://ranking.zeit.de/che/en/ وهذا موقع في نسبة نجاح طلاب في كل تخصص في كل جامعة وتقيمات طلاب وعدد طلاب في تخصص ومعلومات كثير ممكن ساعدك باختيار جامعة"}
-  } else if(payload=="travel-work"){
-      response = { "text": "https://amman.diplo.de/jo-ar/service/05-VisaEinreise/-/1350904 شروطها في هذا الرابط"+"/n"+
-                "https://www.facebook.com/jordanier.in.Deutschland/posts/2289200004666207 اشهر مواقع التوظيف تجدها في هذا المنشور" }
-    
-  } 
-  // Send the message to acknowledge the postback
-  callSendAPI(sender_psid, response);
+    // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
 }
 
 // Sends response messages via the Send API
 function callSendAPI(sender_psid, responses) {
-   responses.forEach( response =>{
+    // Construct the message body
+   for (var i = 0, len = responses.length; i < len; i++) {
+var response = responses[i];
      let request_body = {
     "recipient": {
       "id": sender_psid
@@ -201,8 +202,7 @@ function callSendAPI(sender_psid, responses) {
     }
   }); 
      
-   });
-  // Construct the message body
+   };
   
   
 }
