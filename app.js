@@ -18,7 +18,7 @@ const request = require("request"),
   PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
-
+getStarted();
 // Accepts POST requests at /webhook endpoint
 app.post("/webhook", (req, res) => {
   // Parse the request body from the POST
@@ -26,30 +26,18 @@ app.post("/webhook", (req, res) => {
 
   // Check the webhook event is from a Page subscription
   if (body.object === "page") {
+     
     // Iterate over each entry - there may be multiple if batched
     body.entry.forEach(function(entry) {
       // Get the webhook event. entry.messaging is an array, but
       // will only ever contain one event, so we get index 0
       let webhook_event = entry.messaging[0];
       console.log(webhook_event);
-
+       
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
       console.log("Sender PSID: " + sender_psid);
-      var event = webhook_event;
-      var senderID = event.sender.id;
-      var recipientID = event.recipient.id;
-      var timeOfMessage = event.timestamp;
-      var message = event.message;
-
-      console.log(
-        "Received message for user %d and page %d at %d with message:",
-        senderID,
-        recipientID,
-        timeOfMessage
-      );
-      console.log(JSON.stringify(message));
-
+      
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
