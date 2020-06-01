@@ -19,6 +19,7 @@ const request = require("request"),
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
 getStarted();
+
 // Accepts POST requests at /webhook endpoint
 app.post("/webhook", (req, res) => {
   // Parse the request body from the POST
@@ -40,7 +41,7 @@ app.post("/webhook", (req, res) => {
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
-        handleMessage(sender_psid, webhook_event.message);
+       // handleMessage(sender_psid, webhook_event.message);
       } else if (webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
       }
@@ -330,37 +331,28 @@ function getStarted() {
   );
 }
 function sendGetStarted(recipientId) {
-  var messageData = {
-    recipient: {
-      id: recipientId
-    },
-    message: {
+  var response=[];
+   
+  response[0] = {
       attachment: {
         type: "template",
         payload: {
           template_type: "button",
-          text:
-            "Welcome to the Bot Hotel, I can help with any of the three requests below.",
+          text: " اهلا وسهلا بك ما الذي تود ان تفعله? 🎉",
           buttons: [
             {
               type: "postback",
-              title: "Check in",
-              payload: "check_in"
+              title: "السفر الى المانيا🇩🇪",
+              payload: "travel"
             },
             {
               type: "postback",
-              title: "Room Service",
-              payload: "room_service"
-            },
-            {
-              type: "phone_number",
-              title: "Call Reception",
-              payload: "+16505551234"
+              title: "التحدث مع الادمن🦸🏼‍♂️!",
+              payload: "yes"
             }
           ]
         }
       }
-    }
-  };
-  callSendAPI(messageData);
+    };
+  callSendAPI(recipientId,response);
 }
