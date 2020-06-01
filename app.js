@@ -172,6 +172,10 @@ function handlePostback(sender_psid, received_postback) {
         response .push( { "text": "https://amman.diplo.de/jo-ar/service/05-VisaEinreise/-/1350904 شروطها في هذا الرابط" });
         response .push( { "text":  "https://www.facebook.com/jordanier.in.Deutschland/posts/2289200004666207 اشهر مواقع التوظيف تجدها في هذا المنشور" });
 
+    }else if (payload =="travel-visit"){
+      response.push({"text":"https://visa.vfsglobal.com/jor/en/deu/apply-visa vfs global فيزا سياحه من خلال مكتب"});
+      response.push({"text":"https://visa.vfsglobal.com/jor/en/deu/apply-visa vfs global فيزا سياحه من خلال مكتب"});
+
     }
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
@@ -181,7 +185,7 @@ function handlePostback(sender_psid, received_postback) {
 function callSendAPI(sender_psid, responses) {
     // Construct the message body
    for (var i = 0, len = responses.length; i < len; i++) {
-var response = responses[i];
+   var response = responses[i];
      let request_body = {
     "recipient": {
       "id": sender_psid
