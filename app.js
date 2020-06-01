@@ -189,8 +189,7 @@ function handlePostback(sender_psid, received_postback) {
                     }
           );
     }else if (payload =="travel-visit"){
-      response.push({"text":"https://visa.vfsglobal.com/jor/en/deu/apply-visa vfs global فيزا سياحه من خلال مكتب"});
-      response.push({"text":"https://visa.vfsglobal.com/jor/en/deu/apply-visa vfs global فيزا سياحه من خلال مكتب"});
+      response.push({"text":"https://visa.vfsglobal.com/jor/en/deu/apply-visa vfs global فيزا سياحه من خلال"});
       response.push({
             "attachment":{
                   "type":"template",
