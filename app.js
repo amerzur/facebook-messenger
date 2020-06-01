@@ -134,7 +134,7 @@ let response;
   let payload = received_postback.payload;
 
   // Set the response based on the postback payload
-  if (payload === 'yes') {
+  if (payload === 'yes'|| payload ==="travel-other" ) {
     response = { "text": "شكرا سيكون الادمن معك خلال لحظات!" }
   } else if (payload === 'travel') {
     response = {
@@ -158,7 +158,12 @@ let response;
               "type": "postback",
               "title": "العمل او بحث عن عمل",
               "payload": "travel-work",
-          }
+          },
+          {
+              "type": "postback",
+              "title": "اخرى",
+              "payload": "travel-other",
+          },
            
         ]
       } 
@@ -169,10 +174,10 @@ let response;
                 "https://www.studycheck.de/ وهذا موقع في تقيمات طلاب"  +"/n"+
                "https://ranking.zeit.de/che/en/ وهذا موقع في نسبة نجاح طلاب في كل تخصص في كل جامعة وتقيمات طلاب وعدد طلاب في تخصص ومعلومات كثير ممكن ساعدك باختيار جامعة"}
   } else if(payload=="travel-work"){
-      response = { "text": "https://amman.diplo.de/jo-ar/service/05-VisaEinreise/-/1350904 "+"/n"+
-                "https://www.studycheck.de/ وهذا موقع في تقيمات طلاب" }
+      response = { "text": "https://amman.diplo.de/jo-ar/service/05-VisaEinreise/-/1350904 شروطها في هذا الرابط"+"/n"+
+                "https://www.facebook.com/jordanier.in.Deutschland/posts/2289200004666207 اشهر مواقع التوظيف تجدها في هذا المنشور" }
     
-  }
+  } 
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
 }
