@@ -119,7 +119,7 @@ let response;
         ]
       } 
     }
-    };
+  };
   }  
   
   // Sends the response message
@@ -137,7 +137,41 @@ let response;
   if (payload === 'yes') {
     response = { "text": "شكرا سيكون الادمن معك خلال لحظات!" }
   } else if (payload === 'travel') {
-    response = { "text": "في موقع السفاره الالمانيه تجد  كل المعلومات عن السفر https://amman.diplo.de/" }
+    response = {
+      "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text":" الغرض من السفر ?",
+        "buttons":[
+          {
+            "type":"postback",
+            "title":"الدراسه بكالوريوس وماجستير",
+             "payload":'travel-study',
+          },
+          {
+              "type": "postback",
+              "title": "الزياره اوالسياحه",
+              "payload": "travel-visit",
+          },
+          {
+              "type": "postback",
+              "title": "العمل او بحث عن عمل",
+              "payload": "travel-work",
+          }
+           
+        ]
+      } 
+    }
+  };
+  }else if(payload=="travel-study"){
+    response = { "text": "https://www.daad.de/en/ موقع المفيد للمنح الجامعية "+"/n"+
+                "https://www.studycheck.de/ وهذا موقع في تقيمات طلاب"  +"/n"+
+               "https://ranking.zeit.de/che/en/ وهذا موقع في نسبة نجاح طلاب في كل تخصص في كل جامعة وتقيمات طلاب وعدد طلاب في تخصص ومعلومات كثير ممكن ساعدك باختيار جامعة"}
+  } else if(payload=="travel-work"){
+      response = { "text": "https://amman.diplo.de/jo-ar/service/05-VisaEinreise/-/1350904 "+"/n"+
+                "https://www.studycheck.de/ وهذا موقع في تقيمات طلاب" }
+    
   }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
