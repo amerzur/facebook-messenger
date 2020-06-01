@@ -137,7 +137,7 @@ let response;
   if (payload === 'yes'|| payload ==="travel-other" ) {
     response = { "text": "شكرا سيكون الادمن معك خلال لحظات!" }
   } else if (payload === 'travel') {
-    response = {
+   response = {
       "attachment":{
       "type":"template",
       "payload":{
@@ -159,16 +159,12 @@ let response;
               "title": "العمل او بحث عن عمل",
               "payload": "travel-work",
           },
-          {
-              "type": "postback",
-              "title": "اخرى",
-              "payload": "travel-other",
-          },
+           
            
         ]
       } 
     }
-  };
+  }
   }else if(payload=="travel-study"){
     response = { "text": "https://www.daad.de/en/ موقع المفيد للمنح الجامعية "+"/n"+
                 "https://www.studycheck.de/ وهذا موقع في تقيمات طلاب"  +"/n"+
