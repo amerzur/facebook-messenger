@@ -171,11 +171,43 @@ function handlePostback(sender_psid, received_postback) {
     } else if(payload=="travel-work"){
         response .push( { "text": "https://amman.diplo.de/jo-ar/service/05-VisaEinreise/-/1350904 شروطها في هذا الرابط" });
         response .push( { "text":  "https://www.facebook.com/jordanier.in.Deutschland/posts/2289200004666207 اشهر مواقع التوظيف تجدها في هذا المنشور" });
-
+        response.push({
+                    "attachment":{
+                          "type":"template",
+                          "payload":{
+                            "template_type":"button",
+                            "text":"مزيد من المعلومات ؟ يمكنك الاتصال على السفاره الالمانيه",
+                            "buttons":[
+                              {
+                                "type":"phone_number",
+                                "title":"Call embassy",
+                                "payload":"+96265901170"
+                              }
+                            ]
+                          }
+                        }
+                    }
+          );
     }else if (payload =="travel-visit"){
       response.push({"text":"https://visa.vfsglobal.com/jor/en/deu/apply-visa vfs global فيزا سياحه من خلال مكتب"});
       response.push({"text":"https://visa.vfsglobal.com/jor/en/deu/apply-visa vfs global فيزا سياحه من خلال مكتب"});
-
+      response.push({
+            "attachment":{
+                  "type":"template",
+                  "payload":{
+                    "template_type":"button",
+                    "text":"مزيد من المعلومات ؟ يمكنك الاتصال على المكتب",
+                    "buttons":[
+                      {
+                        "type":"phone_number",
+                        "title":"Call VFS",
+                        "payload":"+96264003777"
+                      }
+                    ]
+                  }
+                }
+            }
+            );
     }
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
