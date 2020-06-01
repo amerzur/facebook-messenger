@@ -165,11 +165,11 @@ function handlePostback(sender_psid, received_postback) {
             }
         })
     }else if(payload=="travel-study") {
-        response.push({"text": "https://www.daad.de/en/ موقع المفيد للمنح الجامعية " + "/n"});
-        response.push({"text": "https://www.studycheck.de/ وهذا موقع في تقيمات طلاب" + "/n"});
-        response.push({"text": "https://ranking.zeit.de/che/en/ وهذا موقع في نسبة نجاح طلاب في كل تخصص في كل جامعة وتقيمات طلاب وعدد طلاب في تخصص ومعلومات كثير ممكن ساعدك باختيار جامعة" + "/n"});
+        response.push({"text": "https://www.daad.de/en/ موقع مفيد للمنح الجامعية " });
+        response.push({"text": "https://www.studycheck.de/ وهذا موقع في تقيمات طلاب"  });
+        response.push({"text": "https://ranking.zeit.de/che/en/ وهذا موقع في نسبة نجاح طلاب في كل تخصص في كل جامعة وتقيمات طلاب وعدد طلاب في تخصص ومعلومات كثير ممكن ساعدك باختيار جامعة"  });
     } else if(payload=="travel-work"){
-        response .push( { "text": "https://amman.diplo.de/jo-ar/service/05-VisaEinreise/-/1350904 شروطها في هذا الرابط"+"/n"});
+        response .push( { "text": "https://amman.diplo.de/jo-ar/service/05-VisaEinreise/-/1350904 شروطها في هذا الرابط" });
         response .push( { "text":  "https://www.facebook.com/jordanier.in.Deutschland/posts/2289200004666207 اشهر مواقع التوظيف تجدها في هذا المنشور" });
 
     }
