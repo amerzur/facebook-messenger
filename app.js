@@ -18,7 +18,6 @@ const request = require("request"),
   PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log("webhook is listening"));
-getStarted();
 
 // Accepts POST requests at /webhook endpoint
 app.post("/webhook", (req, res) => {
@@ -90,7 +89,7 @@ function handleMessage(sender_psid, received_message) {
         type: "template",
         payload: {
           template_type: "button",
-          text: " اهلا وسهلا بك ما الذي تود ان تفعله? 🎉",
+          text: " اهلا وسهلا {{user_first_name}} ! ما الذي تود ان تفعله? 🎉",
           buttons: [
             {
               type: "postback",
@@ -307,7 +306,7 @@ function callSendAPI(sender_psid, responses) {
 }
 // Sends response messages via the Send API
 
-function getStarted() {
+/*function getStarted() {
   // Construct the message body
 
   let request_body = {
@@ -329,7 +328,7 @@ function getStarted() {
       }
     }
   );
-}
+} */
 function sendGetStarted(recipientId) {
   var response=[];
    
