@@ -26,22 +26,21 @@ app.post("/webhook", (req, res) => {
 
   // Check the webhook event is from a Page subscription
   if (body.object === "page") {
-     
     // Iterate over each entry - there may be multiple if batched
     body.entry.forEach(function(entry) {
       // Get the webhook event. entry.messaging is an array, but
       // will only ever contain one event, so we get index 0
       let webhook_event = entry.messaging[0];
       console.log(webhook_event);
-       
+
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
       console.log("Sender PSID: " + sender_psid);
-      
+
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
-       // handleMessage(sender_psid, webhook_event.message);
+        // handleMessage(sender_psid, webhook_event.message);
       } else if (webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
       }
@@ -122,6 +121,8 @@ function handlePostback(sender_psid, received_postback) {
   // Set the response based on the postback payload
   if (payload === "yes" || payload === "travel-other") {
     response.push({ text: "شكرا سيكون الادمن معك خلال لحظات!" });
+    // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
   } else if (payload === "travel") {
     response.push({
       attachment: {
@@ -202,6 +203,8 @@ function handlePostback(sender_psid, received_postback) {
         }
       }
     });
+    // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
   } else if (payload == "travel-work") {
     response.push({
       attachment: {
@@ -263,27 +266,11 @@ function handlePostback(sender_psid, received_postback) {
         }
       }
     });
-  }else if (payload=="start"){
-  var welcome = {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "button",
-          text: "مزيد من المعلومات ؟ يمكنك الاتصال على المكتب",
-          buttons: [
-            {
-              type: "phone_number",
-              title: "Call VFS",
-              payload: "+96264003777"
-            }
-          ]
-        }
-      }
-    };
-    callWelcomeMessageAPI(welcome);
+    // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
+  } else if (payload == "start") {
+    sendGetStarted(sender_psid);
   }
-  // Send the message to acknowledge the postback
-  callSendAPI(sender_psid, response);
 }
 
 // Sends response messages via the Send API
@@ -316,47 +303,62 @@ function callSendAPI(sender_psid, responses) {
   }
 }
 // Sends response messages via the Send API
-function callWelcomeMessageAPI( response) {
-  // Construct the message body
-     
-    let request_body = response;
-    // Send the HTTP request to the Messenger Platform
-    request(
-      {
-        uri: "https://graph.facebook.com/v2.6/me/messenger_profile",
-        qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
-        method: "POST",
-        json: request_body
-      },
-      (err, res, body) => {
-        if (!err) {
-          console.log("message sent!");
-        } else {
-          console.error("Unable to send message:" + err);
-        }
-      }
-    );
-}
+
 function getStarted() {
   // Construct the message body
-     
-    let request_body = {
-      "payload": "start"
-    };
-    // Send the HTTP request to the Messenger Platform
-    request(
-      {
-        uri: "https://graph.facebook.com/v2.6/me/messenger_profile",
-        qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
-        method: "POST",
-        json: request_body
-      },
-      (err, res, body) => {
-        if (!err) {
-          console.log("message sent!");
-        } else {
-          console.error("Unable to send message:" + err);
+
+  let request_body = {
+    payload: "start"
+  };
+  // Send the HTTP request to the Messenger Platform
+  request(
+    {
+      uri: "https://graph.facebook.com/v2.6/me/messenger_profile",
+      qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
+      method: "POST",
+      json: request_body
+    },
+    (err, res, body) => {
+      if (!err) {
+        console.log("message sent!");
+      } else {
+        console.error("Unable to send message:" + err);
+      }
+    }
+  );
+}
+function sendGetStarted(recipientId) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+          text:
+            "Welcome to the Bot Hotel, I can help with any of the three requests below.",
+          buttons: [
+            {
+              type: "postback",
+              title: "Check in",
+              payload: "check_in"
+            },
+            {
+              type: "postback",
+              title: "Room Service",
+              payload: "room_service"
+            },
+            {
+              type: "phone_number",
+              title: "Call Reception",
+              payload: "+16505551234"
+            }
+          ]
         }
       }
-    );
+    }
+  };
+  callSendAPI(messageData);
 }
