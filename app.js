@@ -179,9 +179,9 @@ let response;
 }
 
 // Sends response messages via the Send API
-function callSendAPI(sender_psid, response) {
-  // Construct the message body
-  let request_body = {
+function callSendAPI(sender_psid, responses) {
+   responses.forEach( response =>{
+     let request_body = {
     "recipient": {
       "id": sender_psid
     },
@@ -200,5 +200,9 @@ function callSendAPI(sender_psid, response) {
       console.error("Unable to send message:" + err);
     }
   }); 
+     
+   });
+  // Construct the message body
+  
   
 }
