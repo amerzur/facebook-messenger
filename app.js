@@ -106,12 +106,12 @@ function handleMessage(sender_psid, received_message) {
           buttons: [
             {
               type: "postback",
-              title: "السفر الى المانيا",
+              title: "السفر الى المانيا🇩🇪",
               payload: "travel"
             },
             {
               type: "postback",
-              title: "التحدث مع الادمن!",
+              title: "التحدث مع الادمن🦸🏼‍♂️!",
               payload: "yes"
             }
           ]
