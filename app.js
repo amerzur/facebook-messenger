@@ -165,11 +165,81 @@ function handlePostback(sender_psid, received_postback) {
             }
         })
     }else if(payload=="travel-study") {
-        response.push({"text": "https://www.daad.de/en/ موقع مفيد للمنح الجامعية " });
-        response.push({"text": "https://www.studycheck.de/ وهذا موقع في تقيمات طلاب"  });
-        response.push({"text": "https://ranking.zeit.de/che/en/ وهذا موقع في نسبة نجاح طلاب في كل تخصص في كل جامعة وتقيمات طلاب وعدد طلاب في تخصص ومعلومات كثير ممكن ساعدك باختيار جامعة"  });
+      
+      response.push({
+         "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text":"موقع مفيد للمنح الجامعية ",
+        "buttons":[
+          {
+            "type":"web_url",
+            "url":"https://www.daad.de/en/",
+            "title":"daad.de",
+            "webview_height_ratio": "full"
+          }
+        ]
+      }
+    }
+        
+   });
+      response.push({
+         "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text":"وهذا موقع في تقيمات طلاب",
+        "buttons":[
+          {
+            "type":"web_url",
+            "url":"https://www.studycheck.de/",
+            "title":"studycheck.de",
+            "webview_height_ratio": "full"
+          }
+        ]
+      }
+    }
+        
+   });
+      response.push({
+         "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text":"وهذا موقع في نسبة نجاح طلاب في كل تخصص في كل جامعة وتقيمات طلاب وعدد طلاب في تخصص ومعلومات كثير ممكن ساعدك باختيار جامعة",
+        "buttons":[
+          {
+            "type":"web_url",
+            "url":"https://ranking.zeit.de/che/en/",
+            "title":"ranking.zeit.de",
+            "webview_height_ratio": "full"
+          }
+        ]
+      }
+    }
+        
+   });
     } else if(payload=="travel-work"){
-        response .push( { "text": "https://amman.diplo.de/jo-ar/service/05-VisaEinreise/-/1350904 شروطها في هذا الرابط" });
+      response.push({
+         "attachment":{
+      "type":"template",
+      "payload":{
+        "template_type":"button",
+        "text":"شروط الفيزا الطويله في هذا الرابط",
+        "buttons":[
+          {
+            "type":"web_url",
+            "url":"https://amman.diplo.de/jo-ar/service/05-VisaEinreise/-/1350904",
+            "title":"amman.diplo.de",
+            "webview_height_ratio": "full"
+          }
+        ]
+      }
+    }
+        
+      });
+      
         response .push( { "text":  "https://www.facebook.com/jordanier.in.Deutschland/posts/2289200004666207 اشهر مواقع التوظيف تجدها في هذا المنشور" });
         response.push({
                     "attachment":{
