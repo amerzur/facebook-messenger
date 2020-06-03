@@ -370,10 +370,27 @@ function handlePostback(sender_psid, received_postback) {
     callSendAPI(sender_psid, response);
   }
   else if (payload =="inside-family"){
-    response.push({
-      text:"https://www.facebook.com/jordanier.in.Deutschland/posts/2560683830851155 اسئلة السواقه النظري عربي"
-    });
     
+    response.push({
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+          text: "إرشادات لم الشمل للزوج/ة المقيم/ة في ألمانيا",
+          buttons: [
+            {
+              type: "web_url",
+              url:
+                "https://amman.diplo.de/blob/1785346/78d3a4b27d17e138252a7a02adbbd9b5/merkblatt-nachzug-zum-ehegatten-data.pdf",
+              title: "amman.diplo.de",
+              webview_height_ratio: "full"
+            }
+          ]
+        }
+      }
+    });
+    // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
   }
    else if (payload == "start") {
     sendGetStarted(sender_psid);
