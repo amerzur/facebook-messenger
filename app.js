@@ -383,16 +383,23 @@ function handlePostback(sender_psid, received_postback) {
   else if (payload=="inside-insurance"){
     response.push({
       text:
+        "https://www.facebook.com/jordanier.in.Deutschland/posts/2585000691752802 افضل تامين صحي حكومي"
+    });
+    response.push({
+      text:
+        "https://www.facebook.com/jordanier.in.Deutschland/posts/2275106892742185 ارخص تأمين صحي لطالب ممكن يشترك فيه"
+    });
+    response.push({
+      text:
         "https://www.facebook.com/jordanier.in.Deutschland/posts/2368995006686706 تامين ضد الغير"
     });
     response.push({
       text:
         "https://www.facebook.com/jordanier.in.Deutschland/posts/2365126140406926 تامين الاسنان"
     });
-    response.push({
-      text:
-        "https://www.facebook.com/jordanier.in.Deutschland/posts/2585000691752802 افضل تامين صحي حكومي"
-    });
+    // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
+    
   }
   else if (payload == "start") {
     sendGetStarted(sender_psid);
