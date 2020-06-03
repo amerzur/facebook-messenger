@@ -139,7 +139,7 @@ function handlePostback(sender_psid, received_postback) {
         "template_type": "generic",
         "elements": [
           {
-            "title": "Swipe left/right for more options.",
+            "title": "حرك يمين شمال عشان تشوف كل الخيارات",
             "buttons": [
               {
               type: "postback",
@@ -159,7 +159,7 @@ function handlePostback(sender_psid, received_postback) {
             ]
           },
           {
-            "title": "Swipe left/right for more options.",
+            "title": "حرك يمين شمال عشان تشوف كل الخيارات",
             "buttons": [
               {
               type: "postback",
@@ -315,18 +315,13 @@ function handlePostback(sender_psid, received_postback) {
       text:
         "https://www.facebook.com/jordanier.in.Deutschland/posts/2462249834027889  Steuererklärung بالتفصيل"
     });
-    response.push({
-      text:"اذا كنت تبعث فلوس لاهلك دايما نزل الفورم بفيدك Unterhaltserklärung"
-    });
-    response.push({
-      text:"طبعا لازم تعبي هاي الاوراق و تختمها من المختار او من البلديه او من المتصرف و خلي ابوك و امك يوقعو عليها .. و الافضل انه تكون الاصليه مش صوره"
-    })
+  
     response.push({
       attachment: {
         type: "template",
         payload: {
           template_type: "button",
-          text: "Unterhaltserklärung",
+          text: "اذا كنت تبعث فلوس لاهلك دايما نزل الفورم بفيدك Unterhaltserklärung",
           buttons: [
             {
               type: "web_url",
@@ -339,6 +334,11 @@ function handlePostback(sender_psid, received_postback) {
         }
       }
     });
+       response.push({
+      text:"طبعا لازم تعبي هاي الاوراق و تختمها من المختار او من البلديه او من المتصرف و خلي ابوك و امك يوقعو عليها .. و الافضل انه تكون الاصليه مش صوره"
+    })
+    // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
   }
   else if (payload =="inside-Naturalization"){
     response.push({
@@ -361,7 +361,8 @@ function handlePostback(sender_psid, received_postback) {
    response.push({
       text:"للاسف حاليا ما في طريقة للاحتفاظ بالجنسيه الاردنيه مثل ما هو موضح في المنشور https://www.facebook.com/jordanier.in.Deutschland/posts/2607692706150267"
     })
-    
+    // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
   } 
   else if (payload =="inside-drive"){
     response.push({
@@ -370,6 +371,8 @@ function handlePostback(sender_psid, received_postback) {
     response.push({
       text:"https://www.facebook.com/jordanier.in.Deutschland/posts/2355460928040114 للي بدهم يطلعوا رخصة سواقة المانية"
     });
+    // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
   }
    else if (payload == "start") {
     sendGetStarted(sender_psid);
