@@ -305,10 +305,20 @@ function handlePostback(sender_psid, received_postback) {
         }
       }
     });
+     response.push({
+      text:
+        "https://www.facebook.com/jordanier.in.Deutschland/posts/2273025006283707 لا تنسي قبل ما تروح استرجاع الضريبه من المطار😁"
+    });
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
   } 
-  else if(payload )
+  else if(payload =="inside-tax"){
+    response.push({
+      text:
+        "https://www.facebook.com/jordanier.in.Deutschland/posts/2462249834027889 شرح Steuererklärung بالتفصيل"
+    });
+     
+  }
    else if (payload == "start") {
     sendGetStarted(sender_psid);
   }
