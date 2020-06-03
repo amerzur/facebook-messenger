@@ -124,7 +124,7 @@ function handlePostback(sender_psid, received_postback) {
           template_type: "generic",
           elements: [
             {
-              title: "حرك يمين شمال عشان تشوف كل الخيارات",
+              title: "نوع المساعدة ؟ حرك يمين او شمال ",
               buttons: [
                 {
                   type: "postback",
@@ -144,12 +144,17 @@ function handlePostback(sender_psid, received_postback) {
               ]
             },
             {
-              title: "حرك يمين شمال عشان تشوف كل الخيارات",
+              title: "نوع المساعدة ؟ حرك يمين او شمال ",
               buttons: [
                 {
                   type: "postback",
                   title: "لم الشمل 👨‍👩‍👧",
                   payload: "inside-family"
+                },
+                {
+                  type: "postback",
+                  title: "تامين صحي🚑",
+                  payload: "inside-insurance"
                 },
                 {
                   type: "postback",
@@ -374,7 +379,14 @@ function handlePostback(sender_psid, received_postback) {
     });
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
-  } else if (payload == "start") {
+  }
+  else if (payload=="inside-insurance"){
+    response.push({
+      text:
+        "https://www.facebook.com/jordanier.in.Deutschland/posts/2355460928040114 للي بدهم يطلعوا رخصة سواقة المانية"
+    });
+  }
+  else if (payload == "start") {
     sendGetStarted(sender_psid);
   }
 }
