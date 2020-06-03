@@ -162,11 +162,6 @@ function handlePostback(sender_psid, received_postback) {
             "title": "حرك يمين شمال عشان تشوف كل الخيارات",
             "buttons": [
               {
-              type: "postback",
-              title: " 😡 يغص بالك ولا واحد !",
-              payload: "admin"
-             },
-              {
                 "type": "postback",
                 "title": "لم الشمل 👨‍👩‍👧",
                 "payload": "inside-family"
@@ -373,6 +368,12 @@ function handlePostback(sender_psid, received_postback) {
     });
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
+  }
+  else if (payload =="inside-family"){
+    response.push({
+      text:"https://www.facebook.com/jordanier.in.Deutschland/posts/2560683830851155 اسئلة السواقه النظري عربي"
+    });
+    
   }
    else if (payload == "start") {
     sendGetStarted(sender_psid);
