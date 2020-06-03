@@ -343,8 +343,10 @@ function handlePostback(sender_psid, received_postback) {
     });
   }
   else if (payload =="inside-Naturalization"){
-    
-    
+    "https://handbookgermany.de/ar/rights-laws/citizenship.html"
+    response.push({
+      text:"لازم قبل ما تتجوز المانية تتأكد انها بتحبك مش طمعانه ف الجنسيه الاردنية 😌 https://www.facebook.com/jordanier.in.Deutschland/posts/2399477206971819"
+    })
   }
    else if (payload == "start") {
     sendGetStarted(sender_psid);
