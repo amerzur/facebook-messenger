@@ -408,11 +408,9 @@ function callSendAPI(sender_psid, responses) {
     );
   }
 }
-
-function sendGetStarted(recipientId) {
-  var res = getUserName(recipientId);
-  console.log('response'+res.getBody().user_name);
-var user_name='response'+res.getBody().first_name;
+function callback(res) {
+  var user_name = res.first_name;
+  console.log("user_name:" + user_name);
   var response = [];
   response[0] = {
     attachment: {
@@ -441,11 +439,13 @@ var user_name='response'+res.getBody().first_name;
     }
   };
 
-  callSendAPI(recipientId, response);
+  callSendAPI(res.id, response);
+}
+function sendGetStarted(recipientId) {
+  getUserName(recipientId, callback);
 }
 function getUserName(psid) {
-  var usersPublicProfile =
-    "https://graph.facebook.com/v2.6/" +psid ;
+  var usersPublicProfile = "https://graph.facebook.com/v2.6/" + psid;
   return request(
     {
       url: usersPublicProfile,
@@ -455,8 +455,8 @@ function getUserName(psid) {
     },
     function(error, response, body) {
       if (!error) {
-        console.log(body.first_name);
-       
+        console.log("inside getUserName " + body.first_name);
+        callback(body);
       } else {
         return "error";
       }
