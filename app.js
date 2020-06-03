@@ -121,13 +121,27 @@ function handlePostback(sender_psid, received_postback) {
     callSendAPI(sender_psid, response);
   }else if (payload==="inside"){
     response.push({
-      attachment: {
+     /* attachment: {
         type: "template",
         payload: {
           template_type: "button",
           text: " هل احد هذه الاسئله؟😴",
           buttons: [
-            {
+            
+            ,
+            
+          ]
+        }
+      }*/
+      "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements": [
+          {
+            "title": "Swipe left/right for more options.",
+            "buttons": [
+              {
               type: "postback",
               title: "Steuererklärung 💵🤑",
               payload: "inside-tax"
@@ -142,17 +156,32 @@ function handlePostback(sender_psid, received_postback) {
               title: "تحويل رخصه السواقه 🚕",
               payload: "inside-drive"
             }
-            /*,
-            {
+            ]
+          },
+          {
+            "title": "Swipe left/right for more options.",
+            "buttons": [
+              {
               type: "postback",
-              title: " 😡 لا طبعا انت شو عرفك شو بدي !",
+              title: " 😡 يغص بالك ولا واحد !",
               payload: "admin"
-            }*/
-          ]
-        }
+             },
+              {
+                "type": "postback",
+                "title": "Button 5",
+                "payload": "button5"
+              },
+              {
+                "type": "postback",
+                "title": "Button 6",
+                "payload": "button6"
+              }
+            ]
+          }
+        ]
       }
+    }
     });
-    console.log('before callsendapi');
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
   } else if (payload == "travel-study") {
