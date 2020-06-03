@@ -168,13 +168,13 @@ function handlePostback(sender_psid, received_postback) {
              },
               {
                 "type": "postback",
-                "title": "Button 5",
-                "payload": "button5"
+                "title": "لم الشمل 👨‍👩‍👧",
+                "payload": "inside-family"
               },
               {
-                "type": "postback",
-                "title": "Button 6",
-                "payload": "button6"
+                type: "postback",
+                title: " 😡 يغص بالك ولا واحد !",
+                payload: "admin"
               }
             ]
           }
