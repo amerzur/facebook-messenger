@@ -383,7 +383,15 @@ function handlePostback(sender_psid, received_postback) {
   else if (payload=="inside-insurance"){
     response.push({
       text:
-        "https://www.facebook.com/jordanier.in.Deutschland/posts/2355460928040114 للي بدهم يطلعوا رخصة سواقة المانية"
+        "https://www.facebook.com/jordanier.in.Deutschland/posts/2368995006686706 تامين ضد الغير"
+    });
+    response.push({
+      text:
+        "https://www.facebook.com/jordanier.in.Deutschland/posts/2365126140406926 تامين الاسنان"
+    });
+    response.push({
+      text:
+        "https://www.facebook.com/jordanier.in.Deutschland/posts/2585000691752802 افضل تامين صحي حكومي"
     });
   }
   else if (payload == "start") {
