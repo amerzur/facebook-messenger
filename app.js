@@ -34,13 +34,13 @@ app.post("/webhook", (req, res) => {
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
       console.log("Sender PSID: " + sender_psid);
-
+      
+     
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
        // handleMessage(sender_psid, webhook_event.message);
       } else if (webhook_event.postback) {
-        console.log('postback:'+webhook_event.postback.payload);
         handlePostback(sender_psid, webhook_event.postback);
       }
     });
@@ -121,18 +121,7 @@ function handlePostback(sender_psid, received_postback) {
     callSendAPI(sender_psid, response);
   }else if (payload==="inside"){
     response.push({
-     /* attachment: {
-        type: "template",
-        payload: {
-          template_type: "button",
-          text: " هل احد هذه الاسئله؟😴",
-          buttons: [
-            
-            ,
-            
-          ]
-        }
-      }*/
+     
       "attachment": {
       "type": "template",
       "payload": {
@@ -428,6 +417,7 @@ function callSendAPI(sender_psid, responses) {
 }
 
 function sendGetStarted(recipientId) {
+  var user_name= getUserName(recipientId);
   var response=[];
    response[0] = {
       attachment: {
@@ -458,3 +448,15 @@ function sendGetStarted(recipientId) {
  
   callSendAPI(recipientId,response);
 }
+function getUserName(response) {
+var usersPublicProfile = 'https://graph.facebook.com/v2.6/' + response.user + '?fields=first_name,last_name&access_token=' + process.env.page_token;
+request({
+    url: usersPublicProfile,
+    json: true // parse
+}, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+            console.log('Hi ' + body.first_name);
+          return body.first_name
+        }
+    });
+};
