@@ -1,5 +1,5 @@
 /*
- * bot for Jordanier in deutschland page , to ask FAQ questions 
+ * bot for Jordanier in deutschland page , to ask FAQ questions
  *
  *
  * https://www.facebook.com/pg/jordanier.in.Deutschland
@@ -34,12 +34,11 @@ app.post("/webhook", (req, res) => {
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
       console.log("Sender PSID: " + sender_psid);
-      
-     
+
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
-       // handleMessage(sender_psid, webhook_event.message);
+        // handleMessage(sender_psid, webhook_event.message);
       } else if (webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
       }
@@ -75,8 +74,6 @@ app.get("/webhook", (req, res) => {
     }
   }
 });
-
- 
 
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
@@ -117,54 +114,53 @@ function handlePostback(sender_psid, received_postback) {
         }
       }
     });
-     // Send the message to acknowledge the postback
+    // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
-  }else if (payload==="inside"){
+  } else if (payload === "inside") {
     response.push({
-     
-      "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "generic",
-        "elements": [
-          {
-            "title": "حرك يمين شمال عشان تشوف كل الخيارات",
-            "buttons": [
-              {
-              type: "postback",
-              title: "Steuererklärung 💵🤑",
-              payload: "inside-tax"
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [
+            {
+              title: "حرك يمين شمال عشان تشوف كل الخيارات",
+              buttons: [
+                {
+                  type: "postback",
+                  title: "Steuererklärung 💵🤑",
+                  payload: "inside-tax"
+                },
+                {
+                  type: "postback",
+                  title: "التجنيس وتنازل عن الجنسيه 🛂🇩🇪",
+                  payload: "inside-Naturalization"
+                },
+                {
+                  type: "postback",
+                  title: "تحويل رخصه السواقه 🚕",
+                  payload: "inside-drive"
+                }
+              ]
             },
             {
-              type: "postback",
-              title: "التجنيس وتنازل عن الجنسيه 🛂🇩🇪",
-              payload: "inside-Naturalization"
-            },
-            {
-              type: "postback",
-              title: "تحويل رخصه السواقه 🚕",
-              payload: "inside-drive"
+              title: "حرك يمين شمال عشان تشوف كل الخيارات",
+              buttons: [
+                {
+                  type: "postback",
+                  title: "لم الشمل 👨‍👩‍👧",
+                  payload: "inside-family"
+                },
+                {
+                  type: "postback",
+                  title: " 😡 يغص بالك ولا واحد !",
+                  payload: "admin"
+                }
+              ]
             }
-            ]
-          },
-          {
-            "title": "حرك يمين شمال عشان تشوف كل الخيارات",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "لم الشمل 👨‍👩‍👧",
-                "payload": "inside-family"
-              },
-              {
-                type: "postback",
-                title: " 😡 يغص بالك ولا واحد !",
-                payload: "admin"
-              }
-            ]
-          }
-        ]
+          ]
+        }
       }
-    }
     });
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
@@ -223,8 +219,7 @@ function handlePostback(sender_psid, received_postback) {
     });
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
-  } 
-  else if (payload == "travel-work") {
+  } else if (payload == "travel-work") {
     response.push({
       attachment: {
         type: "template",
@@ -265,8 +260,7 @@ function handlePostback(sender_psid, received_postback) {
     });
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
-  } 
-  else if (payload == "travel-visit") {
+  } else if (payload == "travel-visit") {
     response.push({
       text:
         "https://visa.vfsglobal.com/jor/en/deu/apply-visa vfs global فيزا سياحه من خلال"
@@ -287,30 +281,30 @@ function handlePostback(sender_psid, received_postback) {
         }
       }
     });
-     response.push({
+    response.push({
       text:
         "https://www.facebook.com/jordanier.in.Deutschland/posts/2273025006283707 لا تنسي قبل ما تروح استرجاع الضريبه من المطار😁"
     });
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
-  } 
-  else if(payload =="inside-tax"){
+  } else if (payload == "inside-tax") {
     response.push({
       text:
         "https://www.facebook.com/jordanier.in.Deutschland/posts/2462249834027889  Steuererklärung بالتفصيل"
     });
-  
+
     response.push({
       attachment: {
         type: "template",
         payload: {
           template_type: "button",
-          text: "اذا كنت تبعث فلوس لاهلك دايما نزل الفورم بفيدك Unterhaltserklärung",
+          text:
+            "اذا كنت تبعث فلوس لاهلك دايما نزل الفورم بفيدك Unterhaltserklärung",
           buttons: [
             {
               type: "web_url",
-              url:"https://www.isar-ev.com/unterhaltserklaerungen.html?file=files%2FPDF%2FUnterhaltsbescheinigungen%2FUnterhaltserkl%C3%A4rung%20arabisch-deutsch.pdf&fbclid=IwAR0wLIZfKCj-x0lcMxZNH2ekD9vc28P1u66CT8KukSWQiFu_Ht1mbctqZHM"
-,
+              url:
+                "https://www.isar-ev.com/unterhaltserklaerungen.html?file=files%2FPDF%2FUnterhaltsbescheinigungen%2FUnterhaltserkl%C3%A4rung%20arabisch-deutsch.pdf&fbclid=IwAR0wLIZfKCj-x0lcMxZNH2ekD9vc28P1u66CT8KukSWQiFu_Ht1mbctqZHM",
               title: "Download",
               webview_height_ratio: "full"
             }
@@ -318,13 +312,13 @@ function handlePostback(sender_psid, received_postback) {
         }
       }
     });
-       response.push({
-      text:"طبعا لازم تعبي هاي الاوراق و تختمها من المختار او من البلديه او من المتصرف و خلي ابوك و امك يوقعو عليها .. و الافضل انه تكون الاصليه مش صوره"
-    })
+    response.push({
+      text:
+        "طبعا لازم تعبي هاي الاوراق و تختمها من المختار او من البلديه او من المتصرف و خلي ابوك و امك يوقعو عليها .. و الافضل انه تكون الاصليه مش صوره"
+    });
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
-  }
-  else if (payload =="inside-Naturalization"){
+  } else if (payload == "inside-Naturalization") {
     response.push({
       attachment: {
         type: "template",
@@ -334,7 +328,7 @@ function handlePostback(sender_psid, received_postback) {
           buttons: [
             {
               type: "web_url",
-              url:  "https://handbookgermany.de/ar/rights-laws/citizenship.html",
+              url: "https://handbookgermany.de/ar/rights-laws/citizenship.html",
               title: "handbookgermany",
               webview_height_ratio: "full"
             }
@@ -342,24 +336,24 @@ function handlePostback(sender_psid, received_postback) {
         }
       }
     });
-   response.push({
-      text:"للاسف حاليا ما في طريقة للاحتفاظ بالجنسيه الاردنيه مثل ما هو موضح في المنشور https://www.facebook.com/jordanier.in.Deutschland/posts/2607692706150267"
-    })
-    // Send the message to acknowledge the postback
-    callSendAPI(sender_psid, response);
-  } 
-  else if (payload =="inside-drive"){
     response.push({
-      text:"https://www.facebook.com/jordanier.in.Deutschland/posts/2560683830851155 اسئلة السواقه النظري عربي"
-    });
-    response.push({
-      text:"https://www.facebook.com/jordanier.in.Deutschland/posts/2355460928040114 للي بدهم يطلعوا رخصة سواقة المانية"
+      text:
+        "للاسف حاليا ما في طريقة للاحتفاظ بالجنسيه الاردنيه مثل ما هو موضح في المنشور https://www.facebook.com/jordanier.in.Deutschland/posts/2607692706150267"
     });
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
-  }
-  else if (payload =="inside-family"){
-    
+  } else if (payload == "inside-drive") {
+    response.push({
+      text:
+        "https://www.facebook.com/jordanier.in.Deutschland/posts/2560683830851155 اسئلة السواقه النظري عربي"
+    });
+    response.push({
+      text:
+        "https://www.facebook.com/jordanier.in.Deutschland/posts/2355460928040114 للي بدهم يطلعوا رخصة سواقة المانية"
+    });
+    // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
+  } else if (payload == "inside-family") {
     response.push({
       attachment: {
         type: "template",
@@ -380,8 +374,7 @@ function handlePostback(sender_psid, received_postback) {
     });
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
-  }
-   else if (payload == "start") {
+  } else if (payload == "start") {
     sendGetStarted(sender_psid);
   }
 }
@@ -417,49 +410,56 @@ function callSendAPI(sender_psid, responses) {
 }
 
 function sendGetStarted(recipientId) {
-  var user_name= getUserName(recipientId);
-  console.log('user_name:'+user_name);
-  var response=[];
-   response[0] = {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "button",
-          text: `اهلا وسهلا {user_name}! ما الذي تود ان تفعله? 🎉`,
-          buttons: [
-            {
-              type: "postback",
-              title: "السفر الى المانيا✈️🇩🇪",
-              payload: "travel"
-            },
-            {
-              type: "postback",
-              title: "مساعده في المانيا🤷🏼‍♂️",
-              payload: "inside"
-            },
-            {
-              type: "postback",
-              title: "التحدث مع الادمن🧑🏾‍💻",
-              payload: "admin"
-            }
-          ]
-        }
+  var res = getUserName(recipientId);
+  console.log('response'+res.getBody().user_name);
+var user_name='response'+res.getBody().first_name;
+  var response = [];
+  response[0] = {
+    attachment: {
+      type: "template",
+      payload: {
+        template_type: "button",
+        text: `اهلا وسهلا ${user_name}! ما الذي تود ان تفعله? 🎉`,
+        buttons: [
+          {
+            type: "postback",
+            title: "السفر الى المانيا✈️🇩🇪",
+            payload: "travel"
+          },
+          {
+            type: "postback",
+            title: "مساعده في المانيا🤷🏼‍♂️",
+            payload: "inside"
+          },
+          {
+            type: "postback",
+            title: "التحدث مع الادمن🧑🏾‍💻",
+            payload: "admin"
+          }
+        ]
       }
-    };
- 
-  callSendAPI(recipientId,response);
+    }
+  };
+
+  callSendAPI(recipientId, response);
 }
 function getUserName(psid) {
-var usersPublicProfile = 'https://graph.facebook.com/v2.6/' + psid + '?fields=first_name,last_name&access_token=' + process.env.page_token;
-request({
-    url: usersPublicProfile,
-    json: true // parse
-}, function (error, response, body) {
-        if (!error ) {
-            console.log(body);
-          return body.first_name
-        }else{
-          return 'error';
-        }
-    });
+  var usersPublicProfile =
+    "https://graph.facebook.com/v2.6/" +psid ;
+  return request(
+    {
+      url: usersPublicProfile,
+      qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
+      method: "GET",
+      json: true // parse
+    },
+    function(error, response, body) {
+      if (!error) {
+        console.log(body.first_name);
+       
+      } else {
+        return "error";
+      }
+    }
+  );
 }
