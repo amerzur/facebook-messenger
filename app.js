@@ -1,10 +1,8 @@
 /*
- * Starter Project for Messenger Platform Quick Start Tutorial
+ * bot for Jordanier in deutschland page , to ask FAQ questions 
  *
- * Remix this as the starting point for following the Messenger Platform
- * quick start tutorial.
  *
- * https://developers.facebook.com/docs/messenger-platform/getting-started/quick-start/
+ * https://www.facebook.com/pg/jordanier.in.Deutschland
  *
  */
 
@@ -77,44 +75,7 @@ app.get("/webhook", (req, res) => {
   }
 });
 
-// Handles messages events
-function handleMessage(sender_psid, received_message) {
-  let response = [];
-
-  // Check if the message contains text
-  if (received_message.text) {
-    // Create the payload for a basic text message
-    response[0] = {
-      attachment: {
-        type: "template",
-        payload: {
-          template_type: "button",
-          text: " اهلا وسهلا {{user_first_name}} ! ما الذي تود ان تفعله? 🎉",
-          buttons: [
-            {
-              type: "postback",
-              title: "السفر الى المانيا✈️🇩🇪",
-              payload: "travel"
-            },
-            {
-              type: "postback",
-              title: "مقيم في المانيا و اريد المساعده🤷🏼‍♂️",
-              payload: "inside"
-            },
-            {
-              type: "postback",
-              title: "التحدث مع الادمن🧑🏾‍💻",
-              payload: "yes"
-            }
-          ]
-        }
-      }
-    };
-  }
-
-  // Sends the response message
-  callSendAPI(sender_psid, response);
-}
+ 
 
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
@@ -124,7 +85,7 @@ function handlePostback(sender_psid, received_postback) {
   let payload = received_postback.payload;
 
   // Set the response based on the postback payload
-  if (payload === "yes" || payload === "travel-other") {
+  if (payload === "admin" || payload === "travel-other") {
     response.push({ text: "شكرا سيكون الادمن معك خلال لحظات!" });
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
@@ -179,6 +140,11 @@ function handlePostback(sender_psid, received_postback) {
               type: "postback",
               title: "تحويل رخصه السواقه 🚕",
               payload: "inside-drive"
+            },
+            {
+              type: "postback",
+              title: " 😡 لا طبعا انت شو عرفك شو بدي !",
+              payload: "admin"
             }
           ]
         }
@@ -367,8 +333,11 @@ function handlePostback(sender_psid, received_postback) {
   } 
   else if (payload =="inside-drive"){
     response.push({
-      text:"للاسف حاليا ما في طريقة للاحتفاظ بالجنسيه الاردنيه مثل ما هو موضح في المنشور https://www.facebook.com/jordanier.in.Deutschland/posts/2607692706150267"
-    })
+      text:"https://www.facebook.com/jordanier.in.Deutschland/posts/2560683830851155 اسئلة السواقه النظري عربي"
+    });
+    response.push({
+      text:"https://www.facebook.com/jordanier.in.Deutschland/posts/2355460928040114 للي بدهم يطلعوا رخصة سواقة المانية"
+    });
   }
    else if (payload == "start") {
     sendGetStarted(sender_psid);
@@ -404,54 +373,35 @@ function callSendAPI(sender_psid, responses) {
     );
   }
 }
-// Sends response messages via the Send API
 
-/*function getStarted() {
-  // Construct the message body
-
-  let request_body = {
-    payload: "start"
-  };
-  // Send the HTTP request to the Messenger Platform
-  request(
-    {
-      uri: "https://graph.facebook.com/v2.6/me/messenger_profile",
-      qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
-      method: "POST",
-      json: request_body
-    },
-    (err, res, body) => {
-      if (!err) {
-        console.log("message sent!");
-      } else {
-        console.error("Unable to send message:" + err);
-      }
-    }
-  );
-} */
 function sendGetStarted(recipientId) {
   var response=[];
-   
-  response[0] = {
+   response[0] = {
       attachment: {
         type: "template",
         payload: {
           template_type: "button",
-          text: " اهلا وسهلا بك ما الذي تود ان تفعله? 🎉",
+          text: " اهلا وسهلا {{user_first_name}} ! ما الذي تود ان تفعله? 🎉",
           buttons: [
             {
               type: "postback",
-              title: "السفر الى المانيا🇩🇪",
+              title: "السفر الى المانيا✈️🇩🇪",
               payload: "travel"
             },
             {
               type: "postback",
-              title: "التحدث مع الادمن🦸🏼‍♂️!",
-              payload: "yes"
+              title: "مقيم في المانيا و اريد المساعده🤷🏼‍♂️",
+              payload: "inside"
+            },
+            {
+              type: "postback",
+              title: "التحدث مع الادمن🧑🏾‍💻",
+              payload: "admin"
             }
           ]
         }
       }
     };
+ 
   callSendAPI(recipientId,response);
 }
