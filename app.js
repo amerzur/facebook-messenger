@@ -93,12 +93,17 @@ function handleMessage(sender_psid, received_message) {
           buttons: [
             {
               type: "postback",
-              title: "السفر الى المانيا🇩🇪",
+              title: "السفر الى المانيا✈️🇩🇪",
               payload: "travel"
             },
             {
               type: "postback",
-              title: "التحدث مع الادمن🦸🏼‍♂️!",
+              title: "مقيم في المانيا و اريد المساعده🤷🏼‍♂️",
+              payload: "inside"
+            },
+            {
+              type: "postback",
+              title: "التحدث مع الادمن🧑🏾‍💻",
               payload: "yes"
             }
           ]
@@ -151,6 +156,35 @@ function handlePostback(sender_psid, received_postback) {
       }
     });
      // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
+  }else if (payload=="inside"){
+    response.push({
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+          text: " هل احد هذه الاسئله؟😴",
+          buttons: [
+            {
+              type: "postback",
+              title: "ارجاع الضرائب 💵🤑",
+              payload: "inside-tax"
+            },
+            {
+              type: "postback",
+              title: "التجنيس وتنازل عن الجنسيه 🛂🇩🇪",
+              payload: "inside-citizen"
+            },
+            {
+              type: "postback",
+              title: "تحويل رخصه السواقه",
+              payload: "inside-drive"
+            }
+          ]
+        }
+      }
+    });
+    // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
   } else if (payload == "travel-study") {
     response.push({
@@ -207,7 +241,8 @@ function handlePostback(sender_psid, received_postback) {
     });
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
-  } else if (payload == "travel-work") {
+  } 
+  else if (payload == "travel-work") {
     response.push({
       attachment: {
         type: "template",
@@ -226,7 +261,6 @@ function handlePostback(sender_psid, received_postback) {
         }
       }
     });
-
     response.push({
       text:
         "https://www.facebook.com/jordanier.in.Deutschland/posts/2289200004666207 اشهر مواقع التوظيف تجدها في هذا المنشور"
@@ -249,7 +283,8 @@ function handlePostback(sender_psid, received_postback) {
     });
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
-  } else if (payload == "travel-visit") {
+  } 
+  else if (payload == "travel-visit") {
     response.push({
       text:
         "https://visa.vfsglobal.com/jor/en/deu/apply-visa vfs global فيزا سياحه من خلال"
@@ -272,7 +307,9 @@ function handlePostback(sender_psid, received_postback) {
     });
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
-  } else if (payload == "start") {
+  } 
+  else if(payload )
+   else if (payload == "start") {
     sendGetStarted(sender_psid);
   }
 }
