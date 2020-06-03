@@ -177,7 +177,7 @@ function handlePostback(sender_psid, received_postback) {
             },
             {
               type: "postback",
-              title: "تحويل رخصه السواقه",
+              title: "تحويل رخصه السواقه 🚕",
               payload: "inside-drive"
             }
           ]
@@ -361,10 +361,13 @@ function handlePostback(sender_psid, received_postback) {
       }
     });
    response.push({
-      text:"للاسف حاليا ما في طريقة للاحتفاظ بالجنسيه الاردنيه"
+      text:"للاسف حاليا ما في طريقة للاحتفاظ بالجنسيه الاردنيه مثل ما هو موضح في المنشور https://www.facebook.com/jordanier.in.Deutschland/posts/2607692706150267"
     })
+    
+  } 
+  else if (payload =="inside-drive"){
     response.push({
-      text:"لازم قبل ما تتجوز المانية تتأكد انها بتحبك مش طمعانه ف الجنسيه الاردنية واخيرا 😌 https://www.facebook.com/jordanier.in.Deutschland/posts/2399477206971819"
+      text:"للاسف حاليا ما في طريقة للاحتفاظ بالجنسيه الاردنيه مثل ما هو موضح في المنشور https://www.facebook.com/jordanier.in.Deutschland/posts/2607692706150267"
     })
   }
    else if (payload == "start") {
