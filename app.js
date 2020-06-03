@@ -343,9 +343,28 @@ function handlePostback(sender_psid, received_postback) {
     });
   }
   else if (payload =="inside-Naturalization"){
-    "https://handbookgermany.de/ar/rights-laws/citizenship.html"
     response.push({
-      text:"لازم قبل ما تتجوز المانية تتأكد انها بتحبك مش طمعانه ف الجنسيه الاردنية 😌 https://www.facebook.com/jordanier.in.Deutschland/posts/2399477206971819"
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+          text: "موقع بسيط فيه شروط الحصول على الجنسيه الالمانيه",
+          buttons: [
+            {
+              type: "web_url",
+              url:  "https://handbookgermany.de/ar/rights-laws/citizenship.html",
+              title: "handbookgermany",
+              webview_height_ratio: "full"
+            }
+          ]
+        }
+      }
+    });
+   response.push({
+      text:"للاسف حاليا ما في طريقة للاحتفاظ بالجنسيه الاردنيه"
+    })
+    response.push({
+      text:"لازم قبل ما تتجوز المانية تتأكد انها بتحبك مش طمعانه ف الجنسيه الاردنية واخيرا 😌 https://www.facebook.com/jordanier.in.Deutschland/posts/2399477206971819"
     })
   }
    else if (payload == "start") {
