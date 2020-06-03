@@ -40,6 +40,7 @@ app.post("/webhook", (req, res) => {
       if (webhook_event.message) {
        // handleMessage(sender_psid, webhook_event.message);
       } else if (webhook_event.postback) {
+        console.log('postback:'+webhook_event.postback.payload);
         handlePostback(sender_psid, webhook_event.postback);
       }
     });
@@ -118,7 +119,7 @@ function handlePostback(sender_psid, received_postback) {
     });
      // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
-  }else if (payload=="inside"){
+  }else if (payload==="inside"){
     response.push({
       attachment: {
         type: "template",
@@ -140,16 +141,18 @@ function handlePostback(sender_psid, received_postback) {
               type: "postback",
               title: "تحويل رخصه السواقه 🚕",
               payload: "inside-drive"
-            },
+            }
+            /*,
             {
               type: "postback",
               title: " 😡 لا طبعا انت شو عرفك شو بدي !",
               payload: "admin"
-            }
+            }*/
           ]
         }
       }
     });
+    console.log('before callsendapi');
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
   } else if (payload == "travel-study") {
@@ -390,7 +393,7 @@ function sendGetStarted(recipientId) {
             },
             {
               type: "postback",
-              title: "مقيم في المانيا و اريد المساعده🤷🏼‍♂️",
+              title: "مساعده في المانيا🤷🏼‍♂️",
               payload: "inside"
             },
             {
