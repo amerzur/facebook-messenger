@@ -418,13 +418,14 @@ function callSendAPI(sender_psid, responses) {
 
 function sendGetStarted(recipientId) {
   var user_name= getUserName(recipientId);
+  console.log('user_name:'+user_name);
   var response=[];
    response[0] = {
       attachment: {
         type: "template",
         payload: {
           template_type: "button",
-          text: " اهلا وسهلا {{user_first_name}} ! ما الذي تود ان تفعله? 🎉",
+          text: `اهلا وسهلا {user_name}! ما الذي تود ان تفعله? 🎉`,
           buttons: [
             {
               type: "postback",
@@ -448,15 +449,17 @@ function sendGetStarted(recipientId) {
  
   callSendAPI(recipientId,response);
 }
-function getUserName(response) {
-var usersPublicProfile = 'https://graph.facebook.com/v2.6/' + response.user + '?fields=first_name,last_name&access_token=' + process.env.page_token;
+function getUserName(psid) {
+var usersPublicProfile = 'https://graph.facebook.com/v2.6/' + psid + '?fields=first_name,last_name&access_token=' + process.env.page_token;
 request({
     url: usersPublicProfile,
     json: true // parse
 }, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-            console.log('Hi ' + body.first_name);
+        if (!error ) {
+            console.log(body);
           return body.first_name
+        }else{
+          return 'error';
         }
     });
-};
+}
