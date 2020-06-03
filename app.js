@@ -167,13 +167,13 @@ function handlePostback(sender_psid, received_postback) {
           buttons: [
             {
               type: "postback",
-              title: "ارجاع الضرائب 💵🤑",
+              title: "Steuererklärung 💵🤑",
               payload: "inside-tax"
             },
             {
               type: "postback",
               title: "التجنيس وتنازل عن الجنسيه 🛂🇩🇪",
-              payload: "inside-citizen"
+              payload: "inside-Naturalization"
             },
             {
               type: "postback",
@@ -315,9 +315,36 @@ function handlePostback(sender_psid, received_postback) {
   else if(payload =="inside-tax"){
     response.push({
       text:
-        "https://www.facebook.com/jordanier.in.Deutschland/posts/2462249834027889 شرح Steuererklärung بالتفصيل"
+        "https://www.facebook.com/jordanier.in.Deutschland/posts/2462249834027889  Steuererklärung بالتفصيل"
     });
-     
+    response.push({
+      text:"اذا كنت تبعث فلوس لاهلك دايما نزل الفورم بفيدك Unterhaltserklärung"
+    });
+    response.push({
+      text:"طبعا لازم تعبي هاي الاوراق و تختمها من المختار او من البلديه او من المتصرف و خلي ابوك و امك يوقعو عليها .. و الافضل انه تكون الاصليه مش صوره"
+    })
+    response.push({
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+          text: "Unterhaltserklärung",
+          buttons: [
+            {
+              type: "web_url",
+              url:"https://www.isar-ev.com/unterhaltserklaerungen.html?file=files%2FPDF%2FUnterhaltsbescheinigungen%2FUnterhaltserkl%C3%A4rung%20arabisch-deutsch.pdf&fbclid=IwAR0wLIZfKCj-x0lcMxZNH2ekD9vc28P1u66CT8KukSWQiFu_Ht1mbctqZHM"
+,
+              title: "Download",
+              webview_height_ratio: "full"
+            }
+          ]
+        }
+      }
+    });
+  }
+  else if (payload =="inside-Naturalization"){
+    
+    
   }
    else if (payload == "start") {
     sendGetStarted(sender_psid);
