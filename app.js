@@ -109,7 +109,7 @@ function genRating() {
   ]);
 
   // This is triggered 4 sec
-  //response.delay = "4000";
+ response.delay = "4000";
 
   return response;
 }
