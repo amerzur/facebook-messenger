@@ -435,7 +435,7 @@ function callSendAPI(sender_psid, responses) {
     );
   }
 }
-function callback(res) {
+function getUserCallback(res) {
   var user_name = res.first_name;
   console.log("user_name:" + user_name);
   var response = [];
@@ -469,7 +469,7 @@ function callback(res) {
   callSendAPI(res.id, response);
 }
 function sendGetStarted(recipientId) {
-  getUserName(recipientId, callback);
+  getUserName(recipientId, getUserCallback);
 }
 function getUserName(psid) {
   var usersPublicProfile = "https://graph.facebook.com/v2.6/" + psid;
@@ -483,7 +483,7 @@ function getUserName(psid) {
     function(error, response, body) {
       if (!error) {
         console.log("inside getUserName " + body.first_name);
-        callback(body);
+        getUserCallback(body);
       } else {
         return "error";
       }
