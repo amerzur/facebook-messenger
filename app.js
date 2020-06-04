@@ -471,14 +471,27 @@ function callSendAPI(sender_psid, responses) {
   // Construct the message body
   for (var i = 0, len = responses.length; i < len; i++) {
     var response = responses[i];
+    var delay=0;
+    if ("delay" in response) {
+      delay = response["delay"];
+      delete response["delay"];
+    }
+    console.log('delay:'+delay);
     let request_body = {
       recipient: {
         id: sender_psid
       },
       message: response
     };
-    // Send the HTTP request to the Messenger Platform
-    request(
+      // Send the HTTP request to the Messenger Platform
+     setTimeout(() => sendAPI(request_body), delay*1000);
+  
+    ;
+  }
+}
+function sendAPI(request_body){
+  console.log('inside sendsendAPI')
+  request(
       {
         uri: "https://graph.facebook.com/v2.6/me/messages",
         qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
@@ -493,7 +506,6 @@ function callSendAPI(sender_psid, responses) {
         }
       }
     );
-  }
 }
 function getUserCallback(res) {
   var user_name = res.first_name;
