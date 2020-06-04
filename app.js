@@ -151,11 +151,18 @@ function handlePostback(sender_psid, received_postback) {
   let payload = received_postback.payload;
 
   // Set the response based on the postback payload
-  if (payload === "admin" || payload === "travel-other") {
-    response.push({ text: "شكرا سيكون الادمن معك خلال لحظات!" });
+  if (payload === "admin" ) {
+     response.push({ text: "شكرا سيكون الادمن معك خلال لحظات!" });
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
-  } else if (payload === "travel") {
+    
+  } else if (payload ==="travel-other"){
+   
+   response.push({ text:  "🤷🏼‍♂️المعذره سيكون الادمن معك خلال لحضات حتى يفهم منك "});
+    // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
+  } 
+  else if (payload === "travel") {
     response.push({
       attachment: {
         type: "template",
@@ -165,12 +172,12 @@ function handlePostback(sender_psid, received_postback) {
           buttons: [
             {
               type: "postback",
-              title: "الدراسه بكالوريوس وماجستير",
+              title: "الدراسه👩🏽‍🎓",
               payload: "travel-study"
             },
             {
               type: "postback",
-              title: "الزياره اوالسياحه",
+              title: "📸الزياره اوالسياحه",
               payload: "travel-visit"
             },
             {
@@ -227,7 +234,7 @@ function handlePostback(sender_psid, received_postback) {
                 {
                   type: "postback",
                   title: " لا شيء مما ذكر! 😡",
-                  payload: "admin"
+                  payload: "travel-other"
                 }
               ]
             }
@@ -518,7 +525,7 @@ function getUserCallback(res) {
       type: "template",
       payload: {
         template_type: "button",
-        text: `اهلا وسهلا ${user_name}! ما الذي تود ان تفعله? 🎉`,
+        text: `اهلا وسهلا يا ${user_name}! ما الذي تود ان تفعله? 🎉`,
         buttons: [
           {
             type: "postback",
@@ -527,7 +534,7 @@ function getUserCallback(res) {
           },
           {
             type: "postback",
-            title: "مساعده في المانيا🤷🏼‍♂️",
+            title: "مساعده في المانيا ",
             payload: "inside"
           },
           {
