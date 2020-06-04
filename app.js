@@ -38,7 +38,7 @@ app.post("/webhook", (req, res) => {
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
-        // handleMessage(sender_psid, webhook_event.message);
+         handleMessage(sender_psid, webhook_event.message);
       } else if (webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
       }
@@ -76,8 +76,12 @@ app.get("/webhook", (req, res) => {
 });
 
 function handleMessage(sender_psid, message){
-if(thankYou(message)){
   
+if(thankYou(message)){
+  console.log('thank you message');
+ var response=[genRating()] ;
+  
+  callSendAPI(sender_psid,response);
   
 }  
 }
@@ -97,7 +101,7 @@ function genQuickReply(text, quickReplies) {
 
     return response;
   }
-function genAgentRating(agent) {
+function genRating() {
     let response = genQuickReply(
       'شكرا لسؤالك كيف تقيم المحادثة ؟ 😊',
       [
@@ -110,22 +114,23 @@ function genAgentRating(agent) {
           payload: "CSAT_AVERAGE"
         },
         {
-          title: "\uD83D\uDE41",
+          title: "💩",
           payload: "CSAT_BAD"
         }
       ]
     );
 
-    // This is triggered 4 sec after comming back from talking with an agent
+    // This is triggered 4 sec 
     response.delay = "4000";
 
     return response;
   }
 function thankYou(target){
-   var pattern=['شكرا','ما قصرت','danke','يعطيك العافيه','dankeschöne'];
+  console.log('target: '+target);
+   var pattern=['شكرا','ما قصرت','danke','يعطيك العافيه','dankeschöne','thank','تشكرات'];
     var value = 0;
     pattern.forEach(function(word){
-      value = value + target.includes(word.toLowerCase());
+      value = value + target.contains(word.toLowerCase());
     });
     return (value === 1)
  
