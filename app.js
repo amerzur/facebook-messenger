@@ -108,7 +108,7 @@ function genRating() {
     }
   ]);
 
-  // This is triggered 4 sec
+  // This will be triggered in 4 sec
  response.delay = "4000";
 
   return response;
@@ -119,9 +119,14 @@ function thankYou(target) {
     "ما قصرت",
     "danke",
     "يعطيك العافيه",
-    "dankeschöne",
-    "thank",
-    "تشكرات"
+    "dankeschön",
+    "thanks",
+    "thankyou",
+    "تشكرات",
+    "shukarn",
+    "merci",
+    "ميرسي",
+    "يسلموا"
   ];
    var value=0;
   pattern.forEach(function(word) {
@@ -170,7 +175,7 @@ function handlePostback(sender_psid, received_postback) {
             },
             {
               type: "postback",
-              title: "العمل او بحث عن عمل",
+              title: "العمل 👨🏻‍🔧",
               payload: "travel-work"
             }
           ]
@@ -196,7 +201,7 @@ function handlePostback(sender_psid, received_postback) {
                 },
                 {
                   type: "postback",
-                  title: "التجنيس وتنازل عن الجنسيه 🛂🇩🇪",
+                  title: "التجنيس 🛂🇩🇪",
                   payload: "inside-Naturalization"
                 },
                 {
@@ -221,7 +226,7 @@ function handlePostback(sender_psid, received_postback) {
                 },
                 {
                   type: "postback",
-                  title: " 😡 يغص بالك ولا واحد !",
+                  title: " لا شيء مما ذكر! 😡",
                   payload: "admin"
                 }
               ]
@@ -484,14 +489,7 @@ function callSendAPI(sender_psid, responses) {
       message: response
     };
       // Send the HTTP request to the Messenger Platform
-     setTimeout(() => sendAPI(request_body), delay*1000);
-  
-    ;
-  }
-}
-function sendAPI(request_body){
-  console.log('inside sendsendAPI')
-  request(
+     setTimeout(() => request(
       {
         uri: "https://graph.facebook.com/v2.6/me/messages",
         qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
@@ -505,8 +503,12 @@ function sendAPI(request_body){
           console.error("Unable to send message:" + err);
         }
       }
-    );
+    ), delay);
+  
+    ;
+  }
 }
+
 function getUserCallback(res) {
   var user_name = res.first_name;
   console.log("user_name:" + user_name);
