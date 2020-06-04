@@ -75,6 +75,61 @@ app.get("/webhook", (req, res) => {
   }
 });
 
+function handleMessage(sender_psid, message){
+if(thankYou(message)){
+  
+  
+}  
+}
+function genQuickReply(text, quickReplies) {
+    let response = {
+      text: text,
+      quick_replies: []
+    };
+
+    for (let quickReply of quickReplies) {
+      response["quick_replies"].push({
+        content_type: "text",
+        title: quickReply["title"],
+        payload: quickReply["payload"]
+      });
+    }
+
+    return response;
+  }
+function genAgentRating(agent) {
+    let response = genQuickReply(
+      'شكرا لسؤالك كيف تقيم المحادثة ؟ 😊',
+      [
+        {
+          title: "\uD83D\uDE00",
+          payload: "CSAT_GOOD"
+        },
+        {
+          title: "\uD83D\uDE42",
+          payload: "CSAT_AVERAGE"
+        },
+        {
+          title: "\uD83D\uDE41",
+          payload: "CSAT_BAD"
+        }
+      ]
+    );
+
+    // This is triggered 4 sec after comming back from talking with an agent
+    response.delay = "4000";
+
+    return response;
+  }
+function thankYou(target){
+   var pattern=['شكرا','ما قصرت','danke','يعطيك العافيه','dankeschöne'];
+    var value = 0;
+    pattern.forEach(function(word){
+      value = value + target.includes(word.toLowerCase());
+    });
+    return (value === 1)
+ 
+}
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
   let response = [];
