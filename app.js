@@ -38,7 +38,7 @@ app.post("/webhook", (req, res) => {
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
-         handleMessage(sender_psid, webhook_event.message);
+        handleMessage(sender_psid, webhook_event.message);
       } else if (webhook_event.postback) {
         handlePostback(sender_psid, webhook_event.postback);
       }
@@ -75,65 +75,68 @@ app.get("/webhook", (req, res) => {
   }
 });
 
-function handleMessage(sender_psid, message){
-  
-if(thankYou(message)){
-  console.log('thank you message');
- var response=[genRating()] ;
-  
-  callSendAPI(sender_psid,response);
-  
-}  
-}
+
 function genQuickReply(text, quickReplies) {
-    let response = {
-      text: text,
-      quick_replies: []
-    };
+  let response = {
+    text: text,
+    quick_replies: []
+  };
 
-    for (let quickReply of quickReplies) {
-      response["quick_replies"].push({
-        content_type: "text",
-        title: quickReply["title"],
-        payload: quickReply["payload"]
-      });
-    }
-
-    return response;
-  }
-function genRating() {
-    let response = genQuickReply(
-      'شكرا لسؤالك كيف تقيم المحادثة ؟ 😊',
-      [
-        {
-          title: "\uD83D\uDE00",
-          payload: "CSAT_GOOD"
-        },
-        {
-          title: "\uD83D\uDE42",
-          payload: "CSAT_AVERAGE"
-        },
-        {
-          title: "💩",
-          payload: "CSAT_BAD"
-        }
-      ]
-    );
-
-    // This is triggered 4 sec 
-    response.delay = "4000";
-
-    return response;
-  }
-function thankYou(target){
-  console.log('target: '+target);
-   var pattern=['شكرا','ما قصرت','danke','يعطيك العافيه','dankeschöne','thank','تشكرات'];
-    var value = 0;
-    pattern.forEach(function(word){
-      value = value + target.contains(word.toLowerCase());
+  for (let quickReply of quickReplies) {
+    response["quick_replies"].push({
+      content_type: "text",
+      title: quickReply["title"],
+      payload: quickReply["payload"]
     });
-    return (value === 1)
- 
+  }
+
+  return response;
+}
+function genRating() {
+  let response = genQuickReply("شكرا لتواصلك معنا كيف تقيم المحادثة ؟ 😊", [
+    {
+      title: "\uD83D\uDE00",
+      payload: "CSAT_GOOD"
+    },
+    {
+      title: "\uD83D\uDE42",
+      payload: "CSAT_AVERAGE"
+    },
+    {
+      title: "💩",
+      payload: "CSAT_BAD"
+    }
+  ]);
+
+  // This is triggered 4 sec
+  //response.delay = "4000";
+
+  return response;
+}
+function thankYou(target) {
+  var pattern = [
+    "شكرا",
+    "ما قصرت",
+    "danke",
+    "يعطيك العافيه",
+    "dankeschöne",
+    "thank",
+    "تشكرات"
+  ];
+   var value=0;
+  pattern.forEach(function(word) {
+    value = value + (target.indexOf(word.toLowerCase())>-1);
+  });
+  return value > 0;
+}
+function handleMessage(sender_psid, received_message) {
+  if (received_message.text) {
+    if (thankYou(received_message.text)) {
+      var response = [genRating()];
+
+      callSendAPI(sender_psid, response);
+    }
+  }
 }
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
@@ -439,8 +442,7 @@ function handlePostback(sender_psid, received_postback) {
     });
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
-  }
-  else if (payload=="inside-insurance"){
+  } else if (payload == "inside-insurance") {
     response.push({
       text:
         "https://www.facebook.com/jordanier.in.Deutschland/posts/2585000691752802 افضل تامين صحي حكومي"
@@ -459,9 +461,7 @@ function handlePostback(sender_psid, received_postback) {
     });
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
-    
-  }
-  else if (payload == "start") {
+  } else if (payload == "start") {
     sendGetStarted(sender_psid);
   }
 }
