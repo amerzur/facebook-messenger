@@ -126,7 +126,9 @@ function thankYou(target) {
     "shukarn",
     "merci",
     "ميرسي",
-    "يسلموا"
+    "يسلموا",
+    "العافية",
+    "dank"
   ];
    var value=0;
   pattern.forEach(function(word) {
@@ -215,6 +217,26 @@ function handlePostback(sender_psid, received_postback) {
                   type: "postback",
                   title: "تحويل رخصه السواقه 🚕",
                   payload: "inside-drive"
+                }
+              ]
+            },
+            {
+              title: "نوع المساعدة ؟ حرك يمين او شمال ",
+              buttons: [
+                {
+                  type: "postback",
+                  title: "تحويل اموال 💸",
+                  payload: "inside-transfer"
+                },
+                {
+                  type: "postback",
+                  title: "السفارة الاردنية🇯🇴",
+                  payload: "inside-embassy"
+                },
+                {
+                  type: "postback",
+                  title: "جميد في المانيا🍙",
+                  payload: "inside-jameed"
                 }
               ]
             },
@@ -398,7 +420,76 @@ function handlePostback(sender_psid, received_postback) {
     });
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
-  } else if (payload == "inside-Naturalization") {
+  }
+  else if (payload=="inside-transfer"){
+    response.push({
+      text:
+        "https://www.facebook.com/jordanier.in.Deutschland/posts/2415187908734082"
+    });
+    
+    
+    response.push({
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+          text:
+             "شخصيا ننصحك  بتطبيقAzimo سهل و بسيط و الاستلام من محلات الصرافة. بعطيك قائمة بالمحلات وانت بتقدر تختار اقرب محل صرافة على المستلم",
+          buttons: [
+            {
+              type: "web_url",
+              url: "https://azimo.com/en",
+              title: "Azimo",
+              webview_height_ratio: "full"
+            }
+          ]
+        }
+      }
+      
+    });
+    
+     // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
+  }
+  else if (payload=="inside-embassy"){
+    response.push({
+      text:
+        "http://www.jordanembassy.de/consular_section.htm جميع معاملات السفارة"
+    });
+    response.push({
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "button",
+          text: "يمكنك التواصل مع السفير الاردني شخصيا 🤭",
+          buttons: [
+            {
+              type: "phone_number",
+              title: "Call Ambassador",
+              payload: "+491729069412"
+            }
+          ]
+        }
+      },
+      delay:2000
+    });
+     // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
+  }
+  else if (payload=="inside-jameed"){
+    response.push({
+      text:
+        "اخوي من اي سوبرماركت الماني جرب الكفاركquark  بمشي بدل اللبنة بس مش حامض زي الجرشي والجبنة البيضة اشكال والوان في كل المحلات التركية ( مجدولة، شلايا ،عادية) ومع ميتها المالحة كمان والجميد جرب الكشك من محلات الايرانيين بجيب مفعول قوي و مماثل 😉"
+    });
+    
+    response.push({
+      text:
+      "https://www.facebook.com/jordanier.in.Deutschland/posts/2592968070956064 لمزيد من المعلومات عن بديل الجميد"
+    });
+    // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
+  }
+  else if (payload == "inside-Naturalization") {
     response.push({
       attachment: {
         type: "template",
