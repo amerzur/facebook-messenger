@@ -122,6 +122,7 @@ function isThankYou(target) {
     "dankeschön",
     "thanks",
     "thankyou",
+      "thank",
     "تشكرات",
     "shukarn",
     "merci",
@@ -132,7 +133,7 @@ function isThankYou(target) {
   ];
    var value=0;
   pattern.forEach(function(word) {
-    value = value + (target.indexOf(word.toLowerCase())>-1);
+    value = value + ((target.toLowerCase()).indexOf(word)>-1);
   });
   return value > 0;
 }
