@@ -113,7 +113,7 @@ function genRating() {
 
   return response;
 }
-function thankYou(target) {
+function isThankYou(target) {
   var pattern = [
     "شكرا",
     "ما قصرت",
@@ -138,7 +138,7 @@ function thankYou(target) {
 }
 function handleMessage(sender_psid, received_message) {
   if (received_message.text) {
-    if (thankYou(received_message.text)) {
+    if (isThankYou(received_message.text)) {
       var response = [genRating()];
 
       callSendAPI(sender_psid, response);
